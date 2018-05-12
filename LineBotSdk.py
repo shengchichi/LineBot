@@ -12,7 +12,7 @@ from linebot.models import (
 
 app = Flask(__name__)
 
-line_bot_api = LineBotApi('6DDMjxa+CWuWVJ2PP30IK0g+7hM+WOdM9aTxyKLT+qXd5PQyoNMMwsXKVFHjW9iGxEbZzbD/iVNF7KnAJpKlsTQrd30qKVQoWQ8PezDaE8GO2foLwBQXFbl7eTx3RyAeePyKMQYfFEhhZfOZUosXbwdB04t89/1O/w1cDnyilFU=
+line_bot_api = LineBotApi('ZzRhxzX1H3hsEagEXhqqDBiO73fSOixUgTJXE2SoVdmzvyhnnyNLLkBoPp4oU65xxEbZzbD/iVNF7KnAJpKlsTQrd30qKVQoWQ8PezDaE8HMd7rhCFC50iqEAIF9/GhfzAb12Q48AqeMw0Z0nqhe+QdB04t89/1O/w1cDnyilFU=
 ')
 handler = WebhookHandler('cf5c0712f8bf8a4b7413a066d9dc9a9f')
 
