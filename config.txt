@@ -1,0 +1,4 @@
+[line_bot]
+Channel_Access_Token = YOUR_CHANNEL_SECRET
+Channel_Secret = YOUR_CHANNEL_SECRET
+
