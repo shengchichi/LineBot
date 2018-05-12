@@ -1,5 +1,5 @@
 from flask import Flask, request, abort
-
+import configparser
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -11,10 +11,11 @@ from linebot.models import (
 )
 
 app = Flask(__name__)
+config = configparser.ConfigParser()
+config.read("config.ini")
 
-line_bot_api = LineBotApi('ZzRhxzX1H3hsEagEXhqqDBiO73fSOixUgTJXE2SoVdmzvyhnnyNLLkBoPp4oU65xxEbZzbD/iVNF7KnAJpKlsTQrd30qKVQoWQ8PezDaE8HMd7rhCFC50iqEAIF9/GhfzAb12Q48AqeMw0Z0nqhe+QdB04t89/1O/w1cDnyilFU=
-')
-handler = WebhookHandler('cf5c0712f8bf8a4b7413a066d9dc9a9f')
+line_bot_api = LineBotApi(config['line_bot']['Channel_Access_Token'])
+handler = WebhookHandler(config['line_bot']['Channel_Secret'])
 
 
 @app.route("/callback", methods=['POST'])
