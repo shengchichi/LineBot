@@ -65,15 +65,15 @@ def callback():
 def handle_message(event):
    
     if event.message.text.split()[0] == "s":
-        start = 1
+        
         crawl(event.message.text.split()[1])
         str_list = ""
         for i in range(10):
-            index = str(i)+': '
+            index = str(i+1)+': '
             str_list += index
-            str_list += paper_dict[i+start]['title']
+            str_list += paper_dict[i+1]['title']
             str_list += '\n'
-            str_list += paper_dict[i+start]['document_url']
+            str_list += paper_dict[i+1]['document_url']
             str_list += '\n'
         line_bot_api.reply_message(
         event.reply_token,
@@ -84,13 +84,12 @@ def handle_message(event):
         if not paper_dict:
             str_list += '"use s+" 關鍵字"'
         else:
-            start+=10
             for i in range(10):
                 index = str(i)+': '
                 str_list += index
-                str_list += paper_dict[i+start]['title']
+                str_list += paper_dict[i+1]['title']
                 str_list += '\n'
-                str_list += paper_dict[i+start]['document_url']
+                str_list += paper_dict[i+1]['document_url']
                 str_list += '\n'
         line_bot_api.reply_message(
         event.reply_token,
