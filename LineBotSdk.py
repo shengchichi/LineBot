@@ -1,4 +1,6 @@
+import requests,json
 from flask import Flask, request, abort
+
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -9,6 +11,25 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
+
+def crawl(search_str):
+    proxies = {
+      'http': 'http://proxy.ncu.edu.tw/:3128'
+    }
+    headers = {'Content-Type': 'application/json',
+           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36',
+           'Referer': 'https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=123&newsearch=true'
+              } 
+    payload = {"queryText":search_str,"newsearch":"true"}
+    r = requests.post('https://ieeexplore.ieee.org/rest/search', headers=headers, json=payload, proxies = proxies)
+    #print(r.json())
+    json_data = r.text
+    dict = json.loads(json_data)
+    #print(json.loads(json_data))
+    ls = ""
+    for i in range(10):           #列出十筆資料
+        ls+="{}: {}\n\thttps://ieeexplore.ieee.org{}\n".format(i+1,dict['records'][i]['articleTitle'],dict['records'][i]['pdfLink'])
+    return ls
 
 app = Flask(__name__)
 
@@ -36,9 +57,16 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    line_bot_api.reply_message(
+    if event.message.text:
+        line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.text))
+        TextSendMessage(text='歡迎使用找論文!\n請輸入s+" 關鍵字(ex: s paper)"'))
+    if event.message.text.split()[0] == "s":
+        str_list = crawl(event.message.text.split()[1])
+        line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=str_list))
+        
 
 
 if __name__ == "__main__":
