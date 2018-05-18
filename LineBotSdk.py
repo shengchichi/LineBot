@@ -31,7 +31,8 @@ def crawl(search_str):
     
         for i in range(25):           #列出十筆資料
             #ls+="{}: {}\n".format(i+1+start,dict['records'][i]['articleTitle'])
-            paper_dict[i+1+start] = dict['records'][i]['articleTitle']
+            paper_dict[i+1+start] = {'document_url' : 'https://ieeexplore.ieee.org'+dict['records'][i]['documentlink']+"\n",
+                                     'title' : dict['records'][i]['articleTitle']}
         page+=1
         start+=25
     
@@ -68,19 +69,28 @@ def handle_message(event):
         crawl(event.message.text.split()[1])
         str_list = ""
         for i in range(10):
-            str_list += paper_dict[i+start]
+            index = str(i)+': '
+            str_list += index
+            str_list += paper_dict[i+start]['title']
+            str_list += '\n'
+            str_list += paper_dict[i+start]['document_url']
             str_list += '\n'
         line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text="輸入數字\n\n"+str_list))
         
     elif event.message.text == 'next':
+        str_list = ""
         if not paper_dict:
-            str_list = '"use s+" 關鍵字"'
+            str_list += '"use s+" 關鍵字"'
         else:
             start+=10
             for i in range(10):
-                str_list += paper_dict[i+start]
+                index = str(i)+': '
+                str_list += index
+                str_list += paper_dict[i+start]['title']
+                str_list += '\n'
+                str_list += paper_dict[i+start]['document_url']
                 str_list += '\n'
         line_bot_api.reply_message(
         event.reply_token,
