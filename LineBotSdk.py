@@ -31,7 +31,7 @@ def crawl(search_str):
     
         for i in range(25):           #列出十筆資料
             #ls+="{}: {}\n".format(i+1+start,dict['records'][i]['articleTitle'])
-            paper_dict[i+1+start] = {'document_url' : 'https://ieeexplore.ieee.org'+dict['records'][i]['documentlink']+"\n",
+            paper_dict[i+1+start] = {'document_url' : 'https://ieeexplore.ieee.org'+dict['records'][i]['documentLink']+"\n",
                                      'title' : dict['records'][i]['articleTitle']}
         page+=1
         start+=25
