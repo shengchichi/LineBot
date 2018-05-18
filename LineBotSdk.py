@@ -57,7 +57,7 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    if event.message.text:
+    if event.message.text.split()[0]!='s':
         line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text='歡迎使用找論文!\n請輸入s+" 關鍵字(ex: s paper)"'))
