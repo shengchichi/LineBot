@@ -23,7 +23,7 @@ def crawl(search_str):
               } 
     start = 0
     while page < 3:#先爬個50筆
-        payload = {"queryText":search_str,"newsearch":"true",'pageNumber':(str)page}
+        payload = {"queryText":search_str,"newsearch":"true",'pageNumber':str(page)}
         r = requests.post('https://ieeexplore.ieee.org/rest/search', headers=headers, json=payload, proxies = proxies)
     
         json_data = r.text
