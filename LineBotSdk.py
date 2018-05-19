@@ -60,36 +60,37 @@ def callback():
 
     return 'OK'
 
-
+start =0
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
    
     if event.message.text.split()[0] == "s":
-        
+        start = 0
         crawl(event.message.text.split()[1])
         str_list = ""
         for i in range(10):
-            index = str(i+1)+': '
+            index = str(i+1+start)+': '
             str_list += index
-            str_list += paper_dict[i+1]['title']
+            str_list += paper_dict[i+1+start]['title']
             str_list += '\n'
-            str_list += paper_dict[i+1]['document_url']
+            str_list += paper_dict[i+1+start]['document_url']
             str_list += '\n'
         line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text="輸入數字\n\n"+str_list))
+        TextSendMessage(text="輸入next查看更多喔!\n\n"+str_list))
         
     elif event.message.text == 'next':
         str_list = ""
         if not paper_dict:
             str_list += '"use s+" 關鍵字"'
         else:
+            start+=10
             for i in range(10):
-                index = str(i)+': '
+                index = str(i+1+start)+': '
                 str_list += index
-                str_list += paper_dict[i+1]['title']
+                str_list += paper_dict[i+1+start]['title']
                 str_list += '\n'
-                str_list += paper_dict[i+1]['document_url']
+                str_list += paper_dict[i+1+start]['document_url']
                 str_list += '\n'
         line_bot_api.reply_message(
         event.reply_token,
