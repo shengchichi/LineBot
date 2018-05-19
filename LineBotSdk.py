@@ -62,10 +62,45 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-   
+    
+    buttons_template = TemplateSendMessage(
+        alt_text='請使用手機版喔!',
+        template=ButtonsTemplate(
+            title='歡迎使用找論文',
+            text='還有一些bug請見諒',
+            #thumbnail_image_url='顯示在開頭的大圖片網址',
+            actions=[
+                MessageTemplateAction(
+                    label='開始',
+                    text='開始'
+                ),
+                 MessageTemplateAction(
+                    label='關於我',
+                    text='關於我'
+                ),
+                PostbackTemplateAction(
+                    label='postback',
+                    text='postback text',
+                    data='postback1'
+                )
+            ]
+        )
+    )
+    line_bot_api.reply_message(event.reply_token, buttons_template)
+    
+    if event.message.text == "開始":
+        line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text='歡迎使用找論文!\n請輸入s+" 關鍵字"\nEx:s paper'))
+    
+    if event.message.text == "關於我":
+        line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text='不告訴你哩!'))
+        
     if event.message.text.split()[0] == "s":
         
-        crawl(event.message.text.split()[1])
+        crawl(event.message.text.split()[1:])
         str_list = ""
         for i in range(10):
             index = str(i+1)+': '
@@ -76,13 +111,13 @@ def handle_message(event):
             str_list += '\n'
         line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text="輸入next 數字顯示更多喔!(ex:next 10)\n\n"+str_list))
+        TextSendMessage(text='輸入next "數字"顯示更多喔!\nEx:next 10\n\n'+str_list))
         
     elif event.message.text.split()[0] == 'next':
         str_list = ""
         add = int(event.message.text.split()[1])
         if not paper_dict:
-            str_list += '"use s+" 關鍵字"'
+            str_list += '"請使用 s+" 關鍵字"'
         else:
             for i in range(add):
                 index = str(i+1+add)+': '
@@ -93,12 +128,7 @@ def handle_message(event):
                 str_list += '\n'
         line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text="輸入數字\n\n"+str_list))
-        
-    else:
-        line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text='歡迎使用找論文!\n請輸入s+" 關鍵字(ex: s paper)"'))
+        TextSendMessage(text="更多\n\n"+str_list))
         
     #if (int)event.message.text() >=1 and (int)event.message.text()<=10:
      #   crawl_get((int)event.message.text())
