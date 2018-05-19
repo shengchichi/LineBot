@@ -9,6 +9,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import *
+
 paper_dict ={}
 def crawl(search_str):
     proxies = {
@@ -61,30 +62,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     
-    buttons_template = TemplateSendMessage(
-        alt_text='請使用手機版喔!',
-        template=ButtonsTemplate(
-            title='歡迎使用找論文',
-            text='還有一些bug請見諒',
-            #thumbnail_image_url='顯示在開頭的大圖片網址',
-            actions=[
-                MessageTemplateAction(
-                    label='開始',
-                    text='開始'
-                ),
-                 MessageTemplateAction(
-                    label='關於我',
-                    text='關於我'
-                ),
-                PostbackTemplateAction(
-                    label='postback',
-                    text='postback text',
-                    data='postback1'
-                )
-            ]
-        )
-    )
-    line_bot_api.reply_message(event.reply_token, buttons_template)
+    
     
     if event.message.text == "開始":
         line_bot_api.reply_message(
@@ -128,8 +106,30 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage(text="更多\n\n"+str_list))
         
-    #if (int)event.message.text() >=1 and (int)event.message.text()<=10:
-     #   crawl_get((int)event.message.text())
+    buttons_template = TemplateSendMessage(
+        alt_text='請使用手機版喔!',
+        template=ButtonsTemplate(
+            title='歡迎使用找論文',
+            text='還有一些bug請見諒',
+            #thumbnail_image_url='顯示在開頭的大圖片網址',
+            actions=[
+                MessageTemplateAction(
+                    label='開始',
+                    text='開始'
+                ),
+                 MessageTemplateAction(
+                    label='關於我',
+                    text='關於我'
+                ),
+                PostbackTemplateAction(
+                    label='postback',
+                    text='postback text',
+                    data='postback1'
+                )
+            ]
+        )
+    )
+    line_bot_api.reply_message(event.reply_token, buttons_template)
     
 
 
