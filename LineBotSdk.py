@@ -72,7 +72,7 @@ def handle_message(event):
         
     if event.message.text.split()[0] == "s":
         
-        crawl(event.message.text.split()[1:])
+        crawl(event.message.text.split()[1])
         str_list = ""
         for i in range(10):
             index = str(i+1)+': '
