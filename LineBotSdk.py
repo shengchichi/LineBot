@@ -21,20 +21,16 @@ def crawl(search_str):
            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36',
            'Referer': 'https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=123&newsearch=true'
               } 
-    start = 0
-    while page < 2:#先爬個50筆
-        payload = {"queryText":search_str,"newsearch":"true",'pageNumber':str(page)}
-        r = requests.post('https://ieeexplore.ieee.org/rest/search', headers=headers, json=payload)
+    payload = {"queryText":search_str,"newsearch":"true",'pageNumber':str(page)}
+    r = requests.post('https://ieeexplore.ieee.org/rest/search', headers=headers, json=payload, proxies = proxies)
+    print(r.text)
+    json_data = r.text
+    dict = json.loads(json_data)
     
-        json_data = r.text
-        dict = json.loads(json_data)
-    
-        for i in range(25):           #列出十筆資料
-            #ls+="{}: {}\n".format(i+1+start,dict['records'][i]['articleTitle'])
-            paper_dict[i+1+start] = {'document_url' : 'https://ieeexplore.ieee.org'+dict['records'][i]['documentLink']+"\n",
-                                     'title' : dict['records'][i]['articleTitle']}
-        page+=1
-        start+=25
+    for i in range(25):           #列出十筆資料
+        #ls+="{}: {}\n".format(i+1+start,dict['records'][i]['articleTitle'])
+        paper_dict[i+1] = {'document_url' : 'https://ieeexplore.ieee.org'+dict['records'][i]['documentLink']+"\n",
+                                    'title' : dict['records'][i]['articleTitle']}
     
 
 app = Flask(__name__)
