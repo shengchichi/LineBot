@@ -87,7 +87,7 @@ def handle_message(event):
             str_list += '\n'
         line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text='輸入next "數字"顯示更多喔!\nEx:next 10\n\n'+str_list))
+        TextSendMessage(text='搜尋結束')
     '''    
     elif event.message.text.split()[0] == 'next':
         str_list = ""
@@ -111,7 +111,7 @@ def handle_message(event):
         template=ButtonsTemplate(
             title='歡迎使用找論文',
             text='還有一些bug請見諒',
-            thumbnail_image_url='https://commons.wikimedia.org/wiki/File:Ieee_blue.jpg',
+            thumbnail_image_url='https://commons.wikimedia.org/wiki/File:Ieee_blue.jpg#/media/File:Ieee_blue.jpg',
             actions=[
                 MessageTemplateAction(
                     label='開始',
