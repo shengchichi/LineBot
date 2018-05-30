@@ -88,7 +88,7 @@ def handle_message(event):
         line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text='輸入next "數字"顯示更多喔!\nEx:next 10\n\n'+str_list))
-        
+    '''    
     elif event.message.text.split()[0] == 'next':
         str_list = ""
         add = int(event.message.text.split()[1])
@@ -105,13 +105,13 @@ def handle_message(event):
         line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text="更多\n\n"+str_list))
-        
+    '''    
     buttons_template = TemplateSendMessage(
         alt_text='請使用手機版喔!',
         template=ButtonsTemplate(
             title='歡迎使用找論文',
             text='還有一些bug請見諒',
-            #thumbnail_image_url='顯示在開頭的大圖片網址',
+            thumbnail_image_url='https://commons.wikimedia.org/wiki/File:Ieee_blue.jpg',
             actions=[
                 MessageTemplateAction(
                     label='開始',
@@ -120,11 +120,6 @@ def handle_message(event):
                  MessageTemplateAction(
                     label='關於我',
                     text='關於我'
-                ),
-                PostbackTemplateAction(
-                    label='postback',
-                    text='postback text',
-                    data='postback1'
                 )
             ]
         )
