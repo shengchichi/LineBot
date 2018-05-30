@@ -108,7 +108,7 @@ def handle_message(event):
         template=ButtonsTemplate(
             title='歡迎使用找論文',
             text='還有一些bug請見諒',
-            thumbnail_image_url='https://upload.wikimedia.org/wikipedia/commons/5/56/Ieee_blue.jpg',
+            thumbnail_image_url='https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Ieee_blue.jpg/800px-Ieee_blue.jpg',
             actions=[
                 MessageTemplateAction(
                     label='開始',
