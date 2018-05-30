@@ -84,7 +84,7 @@ def handle_message(event):
         
         line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text="end of search"))
+        TextSendMessage(text=str_list+"end of search"))
     '''    
     elif event.message.text.split()[0] == 'next':
         str_list = ""
