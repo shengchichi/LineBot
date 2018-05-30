@@ -87,7 +87,7 @@ def handle_message(event):
             str_list += '\n'
         line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text='搜尋結束')
+        TextSendMessage(text='搜尋結束'))
     '''    
     elif event.message.text.split()[0] == 'next':
         str_list = ""
