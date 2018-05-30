@@ -14,6 +14,7 @@ paper_dict ={}
 def crawl(search_str):
     proxies = {
       'http': 'http://proxy.ncu.edu.tw/:3128'
+   
     }
     page = 1
     headers = {'Content-Type': 'application/json',
@@ -23,7 +24,7 @@ def crawl(search_str):
     start = 0
     while page < 2:#先爬個50筆
         payload = {"queryText":search_str,"newsearch":"true",'pageNumber':str(page)}
-        r = requests.post('https://ieeexplore.ieee.org/rest/search', headers=headers, json=payload, proxies = proxies)
+        r = requests.post('https://ieeexplore.ieee.org/rest/search', headers=headers, json=payload)
     
         json_data = r.text
         dict = json.loads(json_data)
