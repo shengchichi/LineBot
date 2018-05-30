@@ -21,7 +21,7 @@ def crawl(search_str):
            'Referer': 'https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=123&newsearch=true'
               } 
     start = 0
-    while page < 3:#先爬個50筆
+    while page < 2:#先爬個50筆
         payload = {"queryText":search_str,"newsearch":"true",'pageNumber':str(page)}
         r = requests.post('https://ieeexplore.ieee.org/rest/search', headers=headers, json=payload, proxies = proxies)
     
@@ -105,13 +105,14 @@ def handle_message(event):
         line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text="更多\n\n"+str_list))
-    '''    
+    ''' 
+            
     buttons_template = TemplateSendMessage(
         alt_text='請使用手機版喔!',
         template=ButtonsTemplate(
             title='歡迎使用找論文',
             text='還有一些bug請見諒',
-            thumbnail_image_url='https://commons.wikimedia.org/wiki/File:Ieee_blue.jpg#/media/File:Ieee_blue.jpg',
+            thumbnail_image_url='https://upload.wikimedia.org/wikipedia/commons/5/56/Ieee_blue.jpg',
             actions=[
                 MessageTemplateAction(
                     label='開始',
