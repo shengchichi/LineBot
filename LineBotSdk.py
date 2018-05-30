@@ -21,9 +21,9 @@ def crawl(search_str):
            'Referer': 'https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=123&newsearch=true'
               } 
     payload = {"queryText":search_str,"newsearch":"true"}
-    r = requests.post('https://ieeexplore.ieee.org/rest/search', headers=headers, json=payload, proxies = proxies)
+    r = requests.post('https://ieeexplore.ieee.org/rest/search', headers=headers, json=payload)
     json_data = r.text
-    json_data = json_data.replace('"',"'")
+
     dict = json.loads(json_data)
     
     for i in range(25):           #列出十筆資料
