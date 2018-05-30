@@ -16,12 +16,11 @@ def crawl(search_str):
       'http': 'http://proxy.ncu.edu.tw/:3128'
    
     }
-    page = 1
     headers = {'Content-Type': 'application/json',
            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36',
            'Referer': 'https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=123&newsearch=true'
               } 
-    payload = {"queryText":search_str,"newsearch":"true",'pageNumber':str(page)}
+    payload = {"queryText":search_str,"newsearch":"true"}
     r = requests.post('https://ieeexplore.ieee.org/rest/search', headers=headers, json=payload, proxies = proxies)
     print(r.text)
     json_data = r.text
