@@ -20,7 +20,7 @@ def crawl(search_str):
            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36',
            'Referer': 'https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=123&newsearch=true'
               } 
-    payload = {"queryText":'gene',"newsearch":"true"}
+    payload = {"queryText":search_str,"newsearch":"true"}
     r = requests.post('https://ieeexplore.ieee.org/rest/search', headers=headers, json=payload)
     json_data = r.text
 
@@ -71,8 +71,8 @@ def handle_message(event):
         TextSendMessage(text='不告訴你哩!'))
         
     if event.message.text.split()[0] == "s":
-        
-        crawl(event.message.text.split()[1])
+        '''
+        crawl(event.message.text.split()[1:])
         str_list = ""
         for i in range(10):
             index = str(i+1)+': '
@@ -81,9 +81,10 @@ def handle_message(event):
             str_list += '\n'
             str_list += paper_dict[i+1]['document_url']
             str_list += '\n'
+        '''
         line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text='搜尋結束'))
+        TextSendMessage(text=event.message.text.split()[1:]))
     '''    
     elif event.message.text.split()[0] == 'next':
         str_list = ""
@@ -108,7 +109,7 @@ def handle_message(event):
         template=ButtonsTemplate(
             title='歡迎使用找論文',
             text='還有一些bug請見諒',
-            thumbnail_image_url='https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Ieee_blue.jpg/800px-Ieee_blue.jpg',
+            thumbnail_image_url='https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Ieee_blue.jpg/320px-Ieee_blue.jpg',
             actions=[
                 MessageTemplateAction(
                     label='開始',
