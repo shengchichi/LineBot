@@ -82,9 +82,10 @@ def handle_message(event):
             str_list += paper_dict[i+1]['document_url']
             str_list += '\n'
         '''
+        str = event.message.text.split()[1]
         line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.text.split()[1:]))
+        TextSendMessage(text=str))
     '''    
     elif event.message.text.split()[0] == 'next':
         str_list = ""
