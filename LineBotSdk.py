@@ -71,7 +71,7 @@ def handle_message(event):
         TextSendMessage(text='不告訴你哩!'))
         
     if event.message.text.split()[0] == "s":
-        '''
+       
         crawl(event.message.text.split()[1])
         str_list = ""
         for i in range(10):
@@ -81,11 +81,10 @@ def handle_message(event):
             str_list += '\n'
             str_list += paper_dict[i+1]['document_url']
             str_list += '\n'
-        '''
-        str = event.message.text.split()[1]
+        
         line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=str))
+        TextSendMessage(text="end of search"))
     '''    
     elif event.message.text.split()[0] == 'next':
         str_list = ""
