@@ -1,6 +1,8 @@
 # LineBot
 高速運算project
+加好友~
 
+![image](https://github.com/shengchichi/LineBot/blob/master/qrcode.png)
 
 ![image](https://github.com/shengchichi/LineBot/blob/master/IMG_0992.PNG)
 
