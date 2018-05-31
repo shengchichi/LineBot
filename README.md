@@ -4,7 +4,7 @@
 
 ![image](https://github.com/shengchichi/LineBot/blob/master/qrcode.png)
 # 使用方法:
-  輸入任何字元，會得到menu
+  輸入任何字元，會得到menu\
   輸入 s + "關鍵字" 取得搜尋結果\
   Ex: s network
   
