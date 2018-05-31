@@ -1,9 +1,12 @@
 # LineBot
-高速運算project
+高速運算project\
 加好友~
 
 ![image](https://github.com/shengchichi/LineBot/blob/master/qrcode.png)
-
+## 使用方法:
+  s + "關鍵字"
+  
+  
 ![image](https://github.com/shengchichi/LineBot/blob/master/IMG_0992.PNG)
 
 ![image](https://github.com/shengchichi/LineBot/blob/master/IMG_0995.PNG)
