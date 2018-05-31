@@ -1,4 +1,4 @@
-# LineBot
+# LineBot-論文小幫手
 高速運算project\
 加好友~
 
