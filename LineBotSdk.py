@@ -12,9 +12,6 @@ from linebot.models import *
 
 paper_dict ={}
 def crawl(payload):
-    idx = attr['index']
-    if 'start' in attr:
-        s
     proxies = {
       'http': 'http://proxy.ncu.edu.tw/:3128'
    
