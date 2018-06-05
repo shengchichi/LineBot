@@ -44,7 +44,7 @@ def check_attr(key_str):
         attr['ranges'] = list(str_fmt)#payload要求
         kwd_idx+=1    
     pat = '[!&|]\w+'#find exclusive words
-    match = re.findall(pat,a)
+    match = re.findall(pat,key_str)
     if match:
         attr['matchBoolean'] = "true"
         exp = ""#expression for payload
