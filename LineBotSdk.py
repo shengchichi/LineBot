@@ -1,4 +1,4 @@
-import requests,json
+import requests,json,re
 from flask import Flask, request, abort
 
 
@@ -11,7 +11,10 @@ from linebot.exceptions import (
 from linebot.models import *
 
 paper_dict ={}
-def crawl(search_str):
+def crawl(payload):
+    idx = attr['index']
+    if 'start' in attr:
+        s
     proxies = {
       'http': 'http://proxy.ncu.edu.tw/:3128'
    
@@ -20,7 +23,8 @@ def crawl(search_str):
            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36',
            'Referer': 'https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=123&newsearch=true'
               } 
-    payload = {"queryText":search_str,"newsearch":"true"}
+    
+    
     r = requests.post('https://ieeexplore.ieee.org/rest/search', headers=headers, json=payload)
     json_data = r.text
 
@@ -30,8 +34,24 @@ def crawl(search_str):
         #ls+="{}: {}\n".format(i+1+start,dict['records'][i]['articleTitle'])
         paper_dict[i+1] = {'document_url' : 'https://ieeexplore.ieee.org'+dict['records'][i]['documentLink']+"\n",
                                     'title' : dict['records'][i]['articleTitle']}
+def check_attr(key_str):
+    attr={}
+    kwd_idx = 1
+    pat = '\d{4}'#find years
+    #string = "s 1999-2018"
+    match = re.findall(pat,key_str)
+    if match:
+        str_fmt = "_start_end_Year"
+        str_fmt = str_fmt.replace('start',match[0])
+        str_fmt = str_fmt.replace('end',match[1])
+        attr['ranges'] = str_fmt
+        kwd_idx+=1    
+    #pat = ''#find exclusive words
+    search_text = ""
+    attr['queryText'] = search_text.join(key_str.split()[kwd_idx:])
+    return attr
     
-
+    
 app = Flask(__name__)
 
 line_bot_api = LineBotApi('ZzRhxzX1H3hsEagEXhqqDBiO73fSOixUgTJXE2SoVdmzvyhnnyNLLkBoPp4oU65xxEbZzbD/iVNF7KnAJpKlsTQrd30qKVQoWQ8PezDaE8HMd7rhCFC50iqEAIF9/GhfzAb12Q48AqeMw0Z0nqhe+QdB04t89/1O/w1cDnyilFU=')
@@ -71,8 +91,11 @@ def handle_message(event):
         TextSendMessage(text='不告訴你哩!'))
         
     if event.message.text.split()[0] == "s":
-       
-        crawl(event.message.text.split()[1])
+        attr ={}
+        key_word = ""
+        key_word.join(event.message.text.split()[1:])#list to string
+        attr = check_attr(key_word)
+        crawl(attr)
         str_list = ""
         for i in range(10):
             index = str(i+1)+': '
@@ -85,24 +108,7 @@ def handle_message(event):
         line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=str_list+"end of search"))
-    '''    
-    elif event.message.text.split()[0] == 'next':
-        str_list = ""
-        add = int(event.message.text.split()[1])
-        if not paper_dict:
-            str_list += '"請使用 s+" 關鍵字"'
-        else:
-            for i in range(add):
-                index = str(i+1+add)+': '
-                str_list += index
-                str_list += paper_dict[i+1+add]['title']
-                str_list += '\n'
-                str_list += paper_dict[i+1+add]['document_url']
-                str_list += '\n'
-        line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text="更多\n\n"+str_list))
-    ''' 
+   
             
     buttons_template = TemplateSendMessage(
         alt_text='請使用手機版喔!',
