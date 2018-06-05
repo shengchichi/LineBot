@@ -43,9 +43,27 @@ def check_attr(key_str):
         str_fmt = str_fmt.replace('end',match[1])
         attr['ranges'] = list(str_fmt)#payload要求
         kwd_idx+=1    
-    #pat = ''#find exclusive words
-    search_text = " "
-    attr['queryText'] = search_text.join(key_str.split()[kwd_idx:])
+    pat = '[!&|]\w+'#find exclusive words
+    match = re.findall(pat,a)
+    if match:
+        attr['matchBoolean'] = "true"
+        exp = ""#expression for payload
+        for _ in range(len(match)+1):
+            exp+='('
+        exp += '"Document Title":search_text)'
+        for token in match:
+            if token[0]=='!':
+                exp += ' NOT "Document Title":{})'.format(token[1:])
+            elif token[0]=='&':
+                exp += ' AND "Document Title":{})'.format(token[1:])
+            elif token[0]=='|':
+                exp += ' OR "Document Title":{})'.format(token[1:])
+            kwd_idx+=1    
+        search_text = " ".join(key_str.split()[kwd_idx:])
+        exp = exp.replace('search_text',search_text)
+        attr['queryText'] = exp
+    else:
+        attr['queryText'] = " ".join(key_str.split()[kwd_idx:])
     return attr
     
     
