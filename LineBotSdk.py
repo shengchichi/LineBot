@@ -33,7 +33,7 @@ def crawl(payload):
                                     'title' : dict['records'][i]['articleTitle']}
 def check_attr(key_str):
     attr={}
-    kwd_idx = 1
+    kwd_idx = 0
     pat = '\d{4}'#find years
     #string = "s 1999-2018"
     match = re.findall(pat,key_str)
@@ -44,7 +44,7 @@ def check_attr(key_str):
         attr['ranges'] = str_fmt
         kwd_idx+=1    
     #pat = ''#find exclusive words
-    search_text = ""
+    search_text = " "
     attr['queryText'] = search_text.join(key_str.split()[kwd_idx:])
     return attr
     
@@ -89,8 +89,8 @@ def handle_message(event):
         
     if event.message.text.split()[0] == "s":
         attr ={}
-        key_word = ""
-        key_word.join(event.message.text.split()[1:])#list to string
+        key_word = " "
+        key_word= key_word.join(event.message.text.split()[1:])#list to string
         attr = check_attr(key_word)
         crawl(attr)
         str_list = ""
