@@ -38,7 +38,7 @@ def check_attr(key_str):
     #string = "s 1999-2018"
     match = re.findall(pat,key_str)
     if match:
-        str_fmt = "_start_end_Year"
+        str_fmt = "start_end_Year"
         str_fmt = str_fmt.replace('start',match[0])
         str_fmt = str_fmt.replace('end',match[1])
         attr['ranges'] = str_fmt
