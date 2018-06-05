@@ -41,7 +41,7 @@ def check_attr(key_str):
         str_fmt = "start_end_Year"
         str_fmt = str_fmt.replace('start',match[0])
         str_fmt = str_fmt.replace('end',match[1])
-        attr['ranges'] = str_fmt
+        attr['ranges'] = list(str_fmt)#payload要求
         kwd_idx+=1    
     #pat = ''#find exclusive words
     search_text = " "
