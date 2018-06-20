@@ -1,4 +1,4 @@
-import requests,json,re
+import requests,json,re,logging
 from flask import Flask, request, abort
 
 
@@ -68,6 +68,9 @@ def check_attr(key_str):
     
     
 app = Flask(__name__)
+
+h = logging.FileHandler('app.log', encoding='UTF-8')
+app.logger.addHandler(h)
 
 line_bot_api = LineBotApi('ZzRhxzX1H3hsEagEXhqqDBiO73fSOixUgTJXE2SoVdmzvyhnnyNLLkBoPp4oU65xxEbZzbD/iVNF7KnAJpKlsTQrd30qKVQoWQ8PezDaE8HMd7rhCFC50iqEAIF9/GhfzAb12Q48AqeMw0Z0nqhe+QdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('cf5c0712f8bf8a4b7413a066d9dc9a9f')
